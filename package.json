@@ -1,0 +1,22 @@
+{
+  "name": "indigo-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite start",
+    "build": "vite build"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "indigo-ketcher": "^1.25.0",
+    "ord-schema": "^0.3.95"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.6"
+  }
+}
