@@ -3,12 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="module" src="src/main.ts"></script>
+    <script type="module" src="/src/main.ts"></script>
 </head>
 <body>
 <div id="header">
-    <input type="file" id="pb-input"/>
-    <button id="pb-run">Run</button>
+    <div>
+        <input type="file" id="pb-input"/>
+        <button id="pb-load">Load</button>
+    </div>
+    <pre id="pb-file-info">
+
+    </pre>
+
+    <div class="actions">
+        <button disabled id="pb-run">Run render</button>
+        <button disabled id="pb-bench">Run benchmark</button>
+        <button disabled id="pb-bench-webworkers">Run WebWorkers benchmark</button>
+    </div>
+    <pre id="pb-result"></pre>
+
 </div>
 
 <div id="root"></div>
