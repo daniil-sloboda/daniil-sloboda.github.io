@@ -1,7 +1,15 @@
 import {Compound, Dataset, Identifier, ProductCompound, Reaction} from "./types";
 
 function getCompoundDrawInfo(compound: Compound | ProductCompound): string | null {
-    return compound.identifiersList.find((item: Identifier) => [4, 2].includes(item.type))?.value || null;
+    const molfile = compound.identifiersList.find((item: Identifier) => item.type === 4);
+    const smiles = compound.identifiersList.find((item: Identifier) => item.type === 2);
+    if (molfile) {
+        return molfile.value;
+    }
+    if (smiles) {
+        return smiles.value.replace(/\n/g,'');
+    }
+    return null;
 }
 
 function getReactionCompounds(reaction: Reaction): Array<Compound | ProductCompound> {

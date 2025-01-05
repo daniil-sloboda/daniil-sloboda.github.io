@@ -70,7 +70,14 @@ function renderComponents(components: Set<string>) {
     const componentsArray = Array.from(components);
     const options = new indigoModule.MapStringString();
     options.set("render-output-format", "svg");
-    return componentsArray.map(component => Buffer.from(indigoModule.render(component, options), 'base64').toString());
+    return componentsArray.map(component =>{
+        try {
+            return Buffer.from(indigoModule.render(component, options), 'base64').toString()
+        } catch (e) {
+            console.error(component, e);
+            throw e;
+        }
+    });
 }
 
 function renderHtml(renderedComponents: Array<string>) {
@@ -88,13 +95,17 @@ function runRender() {
         return;
     }
 
-    const start = performance.now();
-    const renderedComponents = renderComponents(components);
-    const end = performance.now();
-    const total = end - start;
+    try {
+        const start = performance.now();
+        const renderedComponents = renderComponents(components);
+        const end = performance.now();
+        const total = end - start;
 
-    renderHtml(renderedComponents);
-    result.innerHTML = `Total time: ${total}ms`;
+        renderHtml(renderedComponents);
+        result.innerHTML = `Total time: ${total}ms`;
+    } catch (e: unknown) {
+        console.error(e);
+    }
 }
 
 function runBenchmark() {
@@ -164,6 +175,8 @@ function runBenchmarkWebWorkers() {
 // @ts-ignore
 indigoInit().then((module) => {
     indigoModule = module;
+    // @ts-ignore
+    window.indigoModule = indigoModule;
 });
 
 loadButton.addEventListener('click', loadFile);
