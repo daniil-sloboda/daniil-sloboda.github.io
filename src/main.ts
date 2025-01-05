@@ -141,6 +141,7 @@ function webWorkerRun(workers: Array<Worker>, totalTime: number, iteration: numb
                totalTime += (end - start);
                if (iteration === appWindow.BENCHMARK_ITERATIONS - 1) {
                    result.innerHTML = `Median time: ${totalTime / appWindow.BENCHMARK_ITERATIONS}ms`;
+                   workers.forEach(worker => worker.terminate());
                } else {
                    webWorkerRun(workers, totalTime, iteration + 1);
                }
